@@ -1,0 +1,47 @@
+{% extends "base.html" %} {% block content %}
+
+<body>
+    <div class="container mt-5">
+        <h1>Aplicación de Reconocimiento Facial</h1>
+        <a href="{% url 'registrar_camara' %}" class="btn btn-primary m-3">Registrar Camara</a>
+        <form method="post" action="{% url 'capturavideo' %}">
+{% csrf_token %}
+            
+            <div class="form-group">
+                <label for="camera">Seleccionar Cámara:</label>
+                <select class="form-control" id="camera" name="camera">
+                  
+                    {% for camara in camaras %}
+                    <option value="0">{{ camara.nombreC }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">Iniciar Reconocimiento</button>
+        </form>
+       
+        <!-- Tabla para mostrar los resultados capturados -->
+        <h2 class="mt-5">Resultados</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Fecha</th>
+                    <th>Hora</th>
+                    <th>Ubicación</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Aquí se llenarán los datos desde la base de datos -->
+                {% for result in results %}
+                <tr>
+                    <td>{{ result.name }}</td>
+                    <td>{{ result.date }}</td>
+                    <td>{{ result.time }}</td>
+                    <td>{{ result.location }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends "base.html" %} {% block content %}
+
+<div class="cameras">
+  <div class="container-max">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="titlepage text_align_center">
+          <h2>Listado de Trabajadores</h2>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <table class="table mt-3">
+        <thead>
+          <tr>
+            <th scope="col">Imagen</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Carnet de Identidad</th>
+            <th scope="col">Cargo</th>
+            <th scope="col">Hora de Entrada</th>
+            <th scope="col">Hora de Salida</th>
+            <th scope="col">Editar</th>
+            <th scope="col">Eliminar</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for persona in personas %}
+          <tr>
+            <td>
+              <img class="imagenTabla" src="{{ persona.imagen.url }}" alt="#" />
+            </td>
+            <td>{{ persona.nombre }}</td>
+            <td>{{ persona.carnet_identidad }}</td>
+            <td>{{ persona.cargo }}</td>
+            <td>{{ persona.horaE }}</td>
+            <td>{{ persona.horaS }}</td>
+            <form method="post" action="{% url 'editar_persona' persona.id %}">
+              {% csrf_token %}
+              <td><button class="btn btn-primary">Editar</button></td>
+            </form>
+            <form
+              action="{% url 'eliminar_persona' persona.id %}"
+              method="POST"
+            >
+              {% csrf_token %}
+              <td><button class="btn btn-danger">Eliminar</button></td>
+            </form>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="col-md-12">
+  <div class="see_camera">
+    <a class="read_more" href="{% url 'registrar_persona' %}"
+      >Registrar nueva persona</a
+    >
+  </div>
+</div>
+
+{% endblock %}

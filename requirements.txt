@@ -1,0 +1,8 @@
+asgiref==3.8.1
+cmake==3.31.4
+Django==5.1.5
+numpy==2.2.2
+opencv-python==4.11.0.86
+pillow==11.1.0
+sqlparse==0.5.3
+tzdata==2025.1
